@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <!-- *********************************************************** -->
+    <!--                          服务核心配置                         -->
+    <!-- *********************************************************** -->
+
+    <!-- cos ranger service监听的服务地址, IP不能填写0.0.0.0, 必须写具体的地址   -->
+    <!-- 因为抢到主锁的实例, 会把自己的地址写入zk中, 客户端凭借此地址进行访问 -->
+    <property>
+        <name>qcloud.object.storage.rpc.address</name>
+        <value>10.0.0.78:9999</value>
+    </property>
+
+    <!-- 此配置设置了token中的service name, 建议写成0.0.0.0:${port}的形式, 这里的port是上述配置项中的port地址 -->
+    <!-- 这个配置项的地址必须写成0.0.0.0, 因为如果发生了cos ranger service主从切换, 之前主生成的token同样可以使用 -->
+    <property>
+        <name>qcloud.object.storage.ranger.service.name</name>
+        <value>0.0.0.0:9999</value>
+    </property>
+
+    <!-- zk服务的地址 -->
+    <property>
+        <name>qcloud.object.storage.zk.address</name>
+        <value>10.0.0.78:2181</value>
+    </property>
+
+    <!-- 获取zk锁的路径, 默认/ranger_qcloud_object_storage -->
+    <property>
+        <name>qcloud.object.storage.zk.latch.path</name>
+        <value>/ranger_qcloud_object_storage</value>
+    </property>
+
+    <!-- 写入cos ranger service leader地址的zk路径, 默认 /ranger_qcloud_object_storage_leader_ip -->
+    <property>
+        <name>qcloud.object.storage.zk.leader.ip.path</name>
+        <value>/ranger_qcloud_object_storage_leader_ip</value>
+    </property>
+
+    <!-- 是否启用cos ranger服务, 默认false, 启用前需要在Ranger服务定义COS服务. -->
+    <property>
+        <name>qcloud.object.storage.enable.cos.ranger</name>
+        <value>true</value>
+    </property>
+
+    <!-- 是否启用chdfs ranger服务, 默认false, 启用前需要在Ranger服务定义CHDFS服务 -->
+    <property>
+        <name>qcloud.object.storage.enable.chdfs.ranger</name>
+        <value>false</value>
+    </property>
+
+
+    <!-- *********************************************************** -->
+    <!-- kerberos相关配置, 若不使用Kerberos(不进行认证), 则可以忽略         -->
+    <!-- *********************************************************** -->
+
+
+    <!-- 是否接入Kerberos服务, 默认false, 如果不需要认证，只需要鉴权，可以关闭 -->
+    <property>
+        <name>qcloud.object.storage.kerberos.enable</name>
+        <value>false</value>
+    </property>
+
+    <!-- 如果开启接入Kerberos, 则使用的Kerberos的凭据(principal)是哪个 -->
+    <property>
+        <name>qcloud.object.storage.kerberos.principal</name>
+        <value>hadoop/_HOST@EMR-DEFRHX4M</value>
+    </property>
+
+    <!-- 如果开启接入Kerberos, 包含上述凭据秘钥信息的keytab文件 -->
+    <property>
+        <name>qcloud.object.storage.kerberos.keytab</name>
+        <value></value>
+    </property>
+
+
+    <!-- *********************************************************** -->
+    <!--                            云秘钥相关配置                      -->
+    <!-- *********************************************************** -->
+
+    <!-- 是否从emr侧获取秘钥, 默认为false. 开启这个选项，需要在腾讯云emr环境, 且预选授予了emr访问cos存储桶的权限 -->
+    <!-- 开启该选项后 不用配置下面的永久秘钥相关信息, 访问COS的临时秘钥, 都由emr侧生成 -->
+    <property>
+        <name>qcloud.object.storage.sts.from.emr.enable</name>
+        <value>false</value>
+    </property>
+
+    <!-- COS的永久秘钥的SercretId, 用于生成临时秘钥给cosn插件， 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <property>
+        <name>qcloud.object.storage.cos.secret.id</name>
+        <value>AKIDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</value>
+    </property>
+
+    <!-- COS的永久秘钥的SercretKey,  用于生成临时秘钥给cosn插件， 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <property>
+        <name>qcloud.object.storage.cos.secret.key</name>
+        <value>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</value>
+    </property>
+
+    <!-- 生成的token临时秘钥的有效期, 单位s, 默认300 -->
+    <property>
+        <name>qcloud.object.storage.cos.tmp.secret.duration</name>
+        <value>300</value>
+    </property>
+
+    <!-- 访问生成临时秘钥的域名, 对于腾讯云CVM, 可以使用sts.internal.tencentcloudapi.com 进行内网访问-->
+    <!-- 否则使用sts.tencentcloudapi.com -->
+    <!-- 默认地址 sts.internal.tencentcloudapi.com -->
+    <property>
+        <name>qcloud.object.storage.sts.domain</name>
+        <value>sts.internal.tencentcloudapi.com</value>
+    </property>
+
+
+    <!-- *********************************************************** -->
+    <!--                     Delegation Token相关配置                  -->
+    <!-- *********************************************************** -->
+
+    <!-- delegation token 持久化到hdfs的路径 -->
+    <property>
+        <name>qcloud.object.storage.delegation.token.persist.dir.path</name>
+        <value>hdfs:///cos_ranger/token_save</value>
+    </property>
+
+    <!-- DelegationToken 续租间隔, 单位ms， 默认86400000(1天) -->
+    <property>
+        <name>qcloud.object.storage.delegation.token.renew-interval</name>
+        <value>86400000</value>
+    </property>
+
+    <!-- DelegationToken 续租间隔, 单位ms， 默认604800000(7天)-->
+    <property>
+        <name>qcloud.object.storage.delegation.token.max-lifetime</name>
+        <value>604800000</value>
+    </property>
+
+</configuration>

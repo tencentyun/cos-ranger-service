@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+    <!-- 从ranger服务侧拉取的policy的本地缓存地址 -->
+    <!-- 请确保cos ranger service对该目录有读写权限 -->
+    <property>
+        <name>ranger.plugin.cos.policy.cache.dir</name>
+        <value>/data/emr/cos/policycache</value>
+    </property>
+
+    <property>
+        <name>ranger.plugin.cos.policy.pollIntervalMs</name>
+        <value>3000</value>
+    </property>
+
+    <property>
+        <name>ranger.plugin.cos.policy.rest.client.connection.timeoutMs</name>
+        <value>30000</value>
+    </property>
+
+    <property>
+        <name>ranger.plugin.cos.policy.rest.client.read.timeoutMs</name>
+        <value>30000</value>
+    </property>
+
+    <!-- ranger服务的restful http地址 -->
+    <property>
+        <name>ranger.plugin.cos.policy.rest.url</name>
+        <value>http://1.2.3.4:6080</value>
+    </property>
+
+    <property>
+        <name>ranger.plugin.cos.policy.source.impl</name>
+        <value>org.apache.ranger.admin.client.RangerAdminRESTClient</value>
+    </property>
+
+    <property>
+        <name>ranger.plugin.cos.service.name</name>
+        <value>cos</value>
+    </property>
+
+</configuration>
