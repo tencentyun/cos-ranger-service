@@ -35,6 +35,7 @@
         <value>org.apache.ranger.admin.client.RangerAdminRESTClient</value>
     </property>
 
+    <!-- 设置chdfs service name的名字, 需要和ranger控制台配置的一样 -->
     <property>
         <name>ranger.plugin.chdfs.service.name</name>
         <value>chdfs</value>

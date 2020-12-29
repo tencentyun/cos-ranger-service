@@ -35,6 +35,7 @@
         <value>org.apache.ranger.admin.client.RangerAdminRESTClient</value>
     </property>
 
+    <!-- 设置cos service name的名字, 需要和ranger控制台配置的一样 -->
     <property>
         <name>ranger.plugin.cos.service.name</name>
         <value>cos</value>

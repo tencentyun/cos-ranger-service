@@ -19,6 +19,13 @@
         <value>0.0.0.0:9999</value>
     </property>
 
+    <!-- cos ranger service的status http端口, 默认9998，服务会监听在0.0.0.0:9998地址!-->
+    <!-- 客户端可以通过curl http://${ranger-server-ip}:9998/status 获取状态 -->
+    <property>
+        <name>qcloud.object.storage.status.port</name>
+        <value>9998</value>
+    </property>
+
     <!-- zk服务的地址 -->
     <property>
         <name>qcloud.object.storage.zk.address</name>
