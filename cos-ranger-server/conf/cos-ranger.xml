@@ -44,6 +44,12 @@
         <value>/ranger_qcloud_object_storage_leader_ip</value>
     </property>
 
+    <!-- 写入cos ranger service follower地址的zk路径, 默认 /ranger_qcloud_object_storage_follower_ip -->
+    <property>
+        <name>qcloud.object.storage.zk.follower.ip.path</name>
+        <value>/ranger_qcloud_object_storage_follower_ip</value>
+    </property>
+
     <!-- 是否启用cos ranger服务, 默认false, 启用前需要在Ranger服务定义COS服务. -->
     <property>
         <name>qcloud.object.storage.enable.cos.ranger</name>
