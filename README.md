@@ -7,3 +7,5 @@
 负责进行鉴权，token生成，临时秘钥生成
 ## ranger-plugin
 在Ranger服务侧扩展cos和chdfs服务的定义与JAR包
+## cosn-rangner-interface
+cos ranger相关数据结构及接口，和cos-ranger-client放在同一目录下，源码可见[Github](https://github.com/tencentyun/cosn-ranger-interface)
