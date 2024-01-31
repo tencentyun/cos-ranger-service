@@ -1,0 +1,81 @@
+{
+  "name": "cos",
+  "implClass": "com.qcloud.object.storage.ranger.COSRangerService",
+  "label": "COS",
+  "description": "COS",
+  "guid": "0d047247-bafe-4cf8-8e9b-d5d377284b2f",
+  "version": 1,
+  "isEnabled": 1,
+  "resources": [
+    {
+      "itemId": 1,
+      "name": "bucket",
+      "type": "string",
+      "level": 10,
+      "parent": "",
+      "mandatory": true,
+      "lookupSupported": false,
+      "recursiveSupported": false,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "Bucket",
+      "description": "Bucket Name"
+    },
+    {
+      "itemId": 2,
+      "name": "path",
+      "type": "path",
+      "level": 20,
+      "parent": "bucket",
+      "mandatory": true,
+      "lookupSupported": true,
+      "recursiveSupported": true,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerPathResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "Path",
+      "description": "COS Path, Should Not Start With /, exp. aaa/b.txt"
+    }
+  ],
+  "accessTypes": [
+    {
+      "itemId": 1,
+      "name": "read",
+      "label": "Read"
+    },
+    {
+      "itemId": 2,
+      "name": "write",
+      "label": "Write"
+    },
+    {
+      "itemId": 3,
+      "name": "list",
+      "label": "List"
+    },
+    {
+      "itemId": 4,
+      "name": "delete",
+      "label": "Delete"
+    }
+  ],
+  "configs": [
+  ],
+  "enums": [
+  ],
+  "contextEnrichers": [],
+  "policyConditions": []
+}
