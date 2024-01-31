@@ -1,0 +1,81 @@
+{
+  "name": "chdfs",
+  "implClass": "com.qcloud.object.storage.ranger.ChdfsRangerService",
+  "label": "CHDFS",
+  "description": "CHDFS",
+  "guid": "0d047247-bafe-4cf8-8e9b-d5d377284b2f",
+  "version": 1,
+  "isEnabled": 1,
+  "resources": [
+    {
+      "itemId": 1,
+      "name": "mountpoint",
+      "type": "string",
+      "level": 10,
+      "parent": "",
+      "mandatory": true,
+      "lookupSupported": false,
+      "recursiveSupported": false,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "MountPoint",
+      "description": "FS MountPoint"
+    },
+    {
+      "itemId": 2,
+      "name": "path",
+      "type": "path",
+      "level": 20,
+      "parent": "mountpoint",
+      "mandatory": true,
+      "lookupSupported": true,
+      "recursiveSupported": true,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerPathResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "Path",
+      "description": "CHDFS Path, Should Start With /, exp. /aaa/b.txt"
+    }
+  ],
+  "accessTypes": [
+    {
+      "itemId": 1,
+      "name": "read",
+      "label": "Read"
+    },
+    {
+      "itemId": 2,
+      "name": "write",
+      "label": "Write"
+    },
+    {
+      "itemId": 3,
+      "name": "list",
+      "label": "List"
+    },
+    {
+      "itemId": 4,
+      "name": "delete",
+      "label": "Delete"
+    }
+  ],
+  "configs": [
+  ],
+  "enums": [
+  ],
+  "contextEnrichers": [],
+  "policyConditions": []
+}
