@@ -9,7 +9,7 @@
     <!-- 因为抢到主锁的实例, 会把自己的地址写入zk中, 客户端凭借此地址进行访问 -->
     <property>
         <name>qcloud.object.storage.rpc.address</name>
-        <value>10.0.0.78:9999</value>
+        <value>10.0.1.8:9999</value>
     </property>
 
     <!-- 此配置设置了token中的service name, 建议写成0.0.0.0:${port}的形式, 这里的port是上述配置项中的port地址 -->
@@ -26,10 +26,11 @@
         <value>9998</value>
     </property>
 
+
     <!-- zk服务的地址 -->
     <property>
         <name>qcloud.object.storage.zk.address</name>
-        <value>10.0.0.78:2181</value>
+        <value>1.2.3.4:2181</value>
     </property>
 
     <!-- 获取zk锁的路径, 默认/ranger_qcloud_object_storage -->
@@ -59,7 +60,17 @@
     <!-- 是否启用chdfs ranger服务, 默认false, 启用前需要在Ranger服务定义CHDFS服务 -->
     <property>
         <name>qcloud.object.storage.enable.chdfs.ranger</name>
-        <value>false</value>
+        <value>true</value>
+    </property>
+
+    <!-- 用户自定义认证类Jar包路径,认证类名称 -->
+    <property>
+        <name>qcloud.object.user.defined.auth.jar.path</name>
+        <value></value>默认为空
+    </property>
+    <property>
+        <name>qcloud.object.user.defined.auth.class.name</name>
+        <value></value>默认为空
     </property>
 
 
@@ -80,10 +91,56 @@
         <value>hadoop/_HOST@EMR-DEFRHX4M</value>
     </property>
 
-    <!-- 如果开启接入Kerberos, 包含上述凭据秘钥信息的keytab文件 -->
+    <!-- 如果开启接入Kerberos, 包含上述凭据秘钥信息的keytab文件路径 -->
     <property>
         <name>qcloud.object.storage.kerberos.keytab</name>
-        <value></value>
+        <value>/var/krb5kdc/emr.keytab</value>
+    </property>
+
+    <!-- delegation token 保存的db url, ip和端口换成自己的db地址信息 -->
+    <property>
+        <name>sql-dt-secret-manager.connection.url</name>
+        <value>jdbc:mysql://10.0.1.1:3306/TokenStore?useUnicode=true&amp;characterEncoding=utf-8</value>
+    </property>
+
+    <!-- 用户名, 创建的用户确保对于TokenStore这个database拥有完全的权限 -->
+    <property>
+        <name>sql-dt-secret-manager.connection.username</name>
+        <value>token_admin</value>
+    </property>
+
+    <!-- 保存数据库密码的jceks文件路径, 数据库密码可以通过hadoop credential命令创建 -->
+    <!-- 参考如下范例命令, 把value设置成自己的数据库密码即可创建jceks文件, 如下命令是把jceks文件保存在hdfs的/emr/cos_ranger/db/路径下, 请确保该目录已在hdfs上创建 -->
+    <!-- 如果保存在本地文件系统上, 比如保存在/tmp目录下的secrets.jceks文件, 则实例路径为 jceks://file/tmp/secrets.jceks, 如果保存在本地磁盘, 则确保每一个部署cosranger服务的节点上都有该文件 -->
+    <!-- hadoop credential create sql-dt-secret-manager.connection.password -value xxxx -provider jceks://hdfs/emr/cos_ranger/db/token_db.jceks -->
+    <property>
+        <name>sql-dt-secret-manager.connection.password</name>
+        <value>jceks://hdfs/emr/cos_ranger/db/token_db.jceks</value>
+    </property>
+
+    <!-- 数据库driver类型, 对于mysql类型的数据库, 则固定是如下配置 -->
+    <property>
+        <name>sql-dt-secret-manager.connection.driver</name>
+        <value>com.mysql.cj.jdbc.Driver</value>
+    </property>
+
+    <!-- 数据库连接池大小 -->
+    <property>
+        <name>sql-dt-secret-manager.connection.maximumPoolSize</name>
+        <value>128</value>
+    </property>
+
+
+    <!-- DelegationToken 续租间隔, 单位ms， 默认86400000(1天) -->
+    <property>
+        <name>qcloud.object.storage.delegation.token.renew-interval</name>
+        <value>86400000</value>
+    </property>
+
+    <!-- DelegationToken 续租间隔, 单位ms， 默认604800000(7天)-->
+    <property>
+        <name>qcloud.object.storage.delegation.token.max-lifetime</name>
+        <value>604800000</value>
     </property>
 
 
@@ -98,16 +155,21 @@
         <value>false</value>
     </property>
 
-    <!-- COS的永久秘钥的SercretId, 用于生成临时秘钥给cosn插件， 秘钥信息请参考 http://console.qcloud.com/capi -->
     <property>
-        <name>qcloud.object.storage.cos.secret.id</name>
-        <value>AKIDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</value>
+        <name>qcloud.object.storage.sts.from.emrv2.enable</name>
+        <value>false</value>
     </property>
 
-    <!-- COS的永久秘钥的SercretKey,  用于生成临时秘钥给cosn插件， 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <!-- 访问COS的永久秘钥的SercretId, 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <property>
+        <name>qcloud.object.storage.cos.secret.id</name>
+        <value>AKXXXXXXXXXXXXXXXXXXXXXXXX</value>
+    </property>
+
+    <!-- 访问COS的永久秘钥的SercretKey, 秘钥信息请参考 http://console.qcloud.com/capi -->
     <property>
         <name>qcloud.object.storage.cos.secret.key</name>
-        <value>YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY</value>
+        <value>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY</value>
     </property>
 
     <!-- 生成的token临时秘钥的有效期, 单位s, 默认300 -->
@@ -122,29 +184,6 @@
     <property>
         <name>qcloud.object.storage.sts.domain</name>
         <value>sts.internal.tencentcloudapi.com</value>
-    </property>
-
-
-    <!-- *********************************************************** -->
-    <!--                     Delegation Token相关配置                  -->
-    <!-- *********************************************************** -->
-
-    <!-- delegation token 持久化到hdfs的路径 -->
-    <property>
-        <name>qcloud.object.storage.delegation.token.persist.dir.path</name>
-        <value>hdfs:///cos_ranger/token_save</value>
-    </property>
-
-    <!-- DelegationToken 续租间隔, 单位ms， 默认86400000(1天) -->
-    <property>
-        <name>qcloud.object.storage.delegation.token.renew-interval</name>
-        <value>86400000</value>
-    </property>
-
-    <!-- DelegationToken 续租间隔, 单位ms， 默认604800000(7天)-->
-    <property>
-        <name>qcloud.object.storage.delegation.token.max-lifetime</name>
-        <value>604800000</value>
     </property>
 
 </configuration>
