@@ -62,7 +62,7 @@
         <value>32</value>
     </property>
 
-    <!-- 是否启用cos ranger服务, 默认false, 启用前需要在Ranger服务定义COS服务. -->
+    <!-- 是否启用cos ranger服务, 默认true, 启用前需要在Ranger服务定义COS服务. -->
     <property>
         <name>qcloud.object.storage.enable.cos.ranger</name>
         <value>true</value>
@@ -71,7 +71,7 @@
     <!-- 是否启用chdfs ranger服务, 默认false, 启用前需要在Ranger服务定义CHDFS服务 -->
     <property>
         <name>qcloud.object.storage.enable.chdfs.ranger</name>
-        <value>true</value>
+        <value>false</value>
     </property>
 
     <!-- 用户自定义认证类Jar包路径,认证类名称 -->
