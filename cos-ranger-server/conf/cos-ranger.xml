@@ -197,15 +197,33 @@
         <value>false</value>
     </property>
 
-    <!-- 访问COS的永久秘钥的SercretId, 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <!-- 访问COS的永久秘钥的SercretId, 用于生成临时密钥, 秘钥信息请参考 http://console.qcloud.com/capi -->
     <property>
         <name>qcloud.object.storage.cos.secret.id</name>
         <value>AKXXXXXXXXXXXXXXXXXXXXXXXX</value>
     </property>
 
-    <!-- 访问COS的永久秘钥的SercretKey, 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <!-- 访问COS的永久秘钥的SercretKey, 用于生成临时密钥, 秘钥信息请参考 http://console.qcloud.com/capi -->
     <property>
         <name>qcloud.object.storage.cos.secret.key</name>
+        <value>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY</value>
+    </property>
+
+
+
+    <!-- 针对某个具体的桶配置的SecretId, 用于生成临时密钥, 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <!-- 配置项的name名称是qcloud.object.storage.cos.secret.id.for.bucket.${bucketName} -->
+    <!-- 比如你的bucket名是mytest-125000, 则name是qcloud.object.storage.cos.secret.id.for.bucket.mytest-125000 -->
+    <property>
+        <name>qcloud.object.storage.cos.secret.id.for.bucket.mytest-125000</name>
+        <value>AKXXXXXXXXXXXXXXXXXXXXXXXX</value>
+    </property>
+
+    <!-- 针对某个具体的桶配置的SecretKey, 用于生成临时密钥, 秘钥信息请参考 http://console.qcloud.com/capi -->
+    <!-- 配置项的name名称是qcloud.object.storage.cos.secret.key.for.bucket.${bucketName} -->
+    <!-- 比如你的bucket名是mytest-125000, 则name是qcloud.object.storage.cos.secret.key.for.bucket.mytest-125000 -->
+    <property>
+        <name>qcloud.object.storage.cos.secret.key.for.bucket.mytest-125000</name>
         <value>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY</value>
     </property>
 
