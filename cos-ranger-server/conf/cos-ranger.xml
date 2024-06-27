@@ -132,8 +132,9 @@
     <!-- 参考如下范例命令, 把value设置成自己的数据库密码即可创建jceks文件, 如下命令是把jceks文件保存在hdfs的/emr/cos_ranger/db/路径下, 请确保该目录已在hdfs上创建 -->
     <!-- 如果保存在本地文件系统上, 比如保存在/tmp目录下的secrets.jceks文件, 则实例路径为 jceks://file/tmp/secrets.jceks, 如果保存在本地磁盘, 则确保每一个部署cosranger服务的节点上都有该文件 -->
     <!-- hadoop credential create sql-dt-secret-manager.connection.password -value xxxx -provider jceks://hdfs/emr/cos_ranger/db/token_db.jceks -->
+    <!-- 以上把xxx换成自己的数据库密钥, create后面的密钥名sql-dt-secret-manager.connection.password不能更换 -->
     <property>
-        <name>sql-dt-secret-manager.connection.password</name>
+        <name>hadoop.security.credential.provider.path</name>
         <value>jceks://hdfs/emr/cos_ranger/db/token_db.jceks</value>
     </property>
 
