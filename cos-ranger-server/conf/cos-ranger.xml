@@ -228,7 +228,9 @@
         <value>YYYYYYYYYYYYYYYYYYYYYYYYYYYYY</value>
     </property>
 
-    <!-- 生成的token临时秘钥的有效期, 单位s, 默认300 -->
+    <!-- 从CAM生成的token临时秘钥的有效期, 单位s, 默认300. 对于从CAM获取的临时秘钥, cos-ranger-server内部会按照bucket粒度进行cache -->
+    <!-- 当客户端获取token时, cache的有效期不足1/6时, 会重新触发从CAM获取sts -->
+    <!-- 改配置对于从EMR获取临时秘钥无效 -->
     <property>
         <name>qcloud.object.storage.cos.tmp.secret.duration</name>
         <value>300</value>
